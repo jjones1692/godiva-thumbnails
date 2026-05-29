@@ -1,0 +1,12 @@
+# Never commit your API key
+.env
+
+# Don't commit personal photos or generated thumbnails
+stills/*
+outputs/*
+!stills/.gitkeep
+!outputs/.gitkeep
+
+# Python junk
+__pycache__/
+*.pyc
