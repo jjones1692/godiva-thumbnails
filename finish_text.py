@@ -68,36 +68,57 @@ def wrap_to_width(draw, text, f, max_w):
     if cur: lines.append(cur)
     return lines
 
+def bottom_scrim(im, frac=0.42, strength=180):
+    """Dark gradient over the bottom `frac` of the image so text always reads."""
+    W, H = im.size
+    start = int(H * (1 - frac))
+    grad = Image.new("L", (1, H), 0)
+    for y in range(start, H):
+        t = (y - start) / max(1, (H - start))
+        grad.putpixel((0, y), int(strength * (t ** 1.3)))
+    alpha = grad.resize((W, H))
+    black = Image.new("RGB", (W, H), (0, 0, 0))
+    return Image.composite(black, im, alpha)
+
 def finish(image_path, punch, main, sub, out_path):
     im = Image.open(image_path).convert("RGB")
     W, H = im.size
+    im = bottom_scrim(im)              # guarantee contrast for the bottom text band
     draw = ImageDraw.Draw(im)
     margin = int(W * 0.04)
 
-    # MAIN caption: one clean block, lower third, white + heavy black outline
-    main = main.upper()
-    main_f = fit_font(draw, main, FONT_MAIN, int(W * 0.92), int(H * 0.13))
-    main_lines = wrap_to_width(draw, main, main_f, int(W * 0.92))
-    if len(main_lines) > 2:  # keep to 2 lines max, refit smaller
-        main_f = fit_font(draw, main, FONT_MAIN, int(W * 0.46), int(H * 0.12))
-        main_lines = wrap_to_width(draw, main, main_f, int(W * 0.46))
-    lh = text_size(draw, "Ag", main_f)[1] + int(H * 0.02)
-    block_h = lh * len(main_lines)
-    y = int(H * 0.78) - block_h
-    for line in main_lines:
-        lw, _ = text_size(draw, line, main_f)
-        draw_outlined(draw, ((W - lw)//2, y), line, main_f, WHITE, ow=max(4, main_f.size//14))
-        y += lh
-
-    # SUB caption: gold, just under main
+    # SUB first (we anchor from the very bottom up): gold, bottom band
+    sub_h = 0
     if sub:
         sub = sub.upper()
-        sub_f = fit_font(draw, sub, FONT_SUB, int(W * 0.7), int(H * 0.055), min_size=20)
-        sw, sh = text_size(draw, sub, sub_f)
-        sy = y + int(H * 0.005)
-        draw_outlined(draw, ((W - sw)//2, sy), sub, sub_f, GOLD, ow=3)
+        sub_f = fit_font(draw, sub, FONT_SUB, int(W * 0.8), int(H * 0.058), min_size=22)
+        _, sub_h = text_size(draw, sub, sub_f)
 
-    # PUNCH word: black text in a solid red box, upper area, offset from center
+    # MAIN caption: ONE clean block anchored to the bottom band, never crossing center
+    main = main.upper()
+    main_f = fit_font(draw, main, FONT_MAIN, int(W * 0.94), int(H * 0.135))
+    main_lines = wrap_to_width(draw, main, main_f, int(W * 0.94))
+    if len(main_lines) > 2:
+        main_f = fit_font(draw, main, FONT_MAIN, int(W * 0.55), int(H * 0.12))
+        main_lines = wrap_to_width(draw, main, main_f, int(W * 0.55))
+    lh = text_size(draw, "Ag", main_f)[1] + int(H * 0.018)
+    block_h = lh * len(main_lines)
+
+    bottom_pad = int(H * 0.05)
+    sub_gap = int(H * 0.012)
+    # bottom edge of sub sits bottom_pad from frame bottom; main stacks above it
+    sub_y = H - bottom_pad - sub_h
+    main_bottom = sub_y - sub_gap if sub else H - bottom_pad
+    y = main_bottom - block_h
+    for line in main_lines:
+        lw, _ = text_size(draw, line, main_f)
+        draw_outlined(draw, ((W - lw)//2, y), line, main_f, WHITE, ow=max(5, main_f.size//13))
+        y += lh
+    if sub:
+        sw, _ = text_size(draw, sub, sub_f)
+        draw_outlined(draw, ((W - sw)//2, sub_y), sub, sub_f, GOLD, ow=4)
+
+    # PUNCH word: black text in a solid red box, top-left
     if punch:
         punch = punch.upper()
         pf = font(FONT_MAIN, int(H * 0.085))
