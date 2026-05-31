@@ -125,6 +125,11 @@ def build_prompt(c):
         "Generous negative space. Simplicity reads premium, clutter reads amateur. One clean "
         "prop per side, not five.\n\n"
 
+        "NO REDUNDANT PROPS: the LEFT and RIGHT zones must show DIFFERENT things. Never repeat "
+        "the same stamp, document, or symbol in two places. If one element already shows the "
+        "outcome (e.g. a DELETED page), the other zone must show something else (a higher score, "
+        "a clean report, a funding doc, a green check), so every prop adds new information.\n\n"
+
         "THREE-ZONE LAYOUT (eye travels left to right, problem to solution):\n"
         f"- LEFT = PROBLEM: {left}. Reds and dark shadow tones.\n"
         "- CENTER = THE MAN, brightest, sharpest, main focus.\n"

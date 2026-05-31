@@ -26,7 +26,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 FONT_MAIN = os.path.join(HERE, "fonts", "Anton-Regular.ttf")
 FONT_SUB  = os.path.join(HERE, "fonts", "BarlowCondensed-SemiBold.ttf")
 
-GOLD = (201, 156, 61)
+GOLD = (242, 190, 60)
 RED  = (193, 39, 45)
 WHITE = (245, 245, 245)
 BLACK = (10, 10, 10)
@@ -83,18 +83,17 @@ def bottom_scrim(im, frac=0.42, strength=180):
 def finish(image_path, punch, main, sub, out_path):
     im = Image.open(image_path).convert("RGB")
     W, H = im.size
-    im = bottom_scrim(im)              # guarantee contrast for the bottom text band
+    im = bottom_scrim(im)                      # guarantee contrast for the bottom text band
     draw = ImageDraw.Draw(im)
-    margin = int(W * 0.04)
 
-    # SUB first (we anchor from the very bottom up): gold, bottom band
-    sub_h = 0
+    # --- measure SUB (gold, very bottom) ---
+    sub_f = None; sub_h = 0
     if sub:
         sub = sub.upper()
-        sub_f = fit_font(draw, sub, FONT_SUB, int(W * 0.8), int(H * 0.058), min_size=22)
+        sub_f = fit_font(draw, sub, FONT_SUB, int(W * 0.8), int(H * 0.062), min_size=22)
         _, sub_h = text_size(draw, sub, sub_f)
 
-    # MAIN caption: ONE clean block anchored to the bottom band, never crossing center
+    # --- measure MAIN (white block, one or two lines) ---
     main = main.upper()
     main_f = fit_font(draw, main, FONT_MAIN, int(W * 0.94), int(H * 0.135))
     main_lines = wrap_to_width(draw, main, main_f, int(W * 0.94))
@@ -102,31 +101,45 @@ def finish(image_path, punch, main, sub, out_path):
         main_f = fit_font(draw, main, FONT_MAIN, int(W * 0.55), int(H * 0.12))
         main_lines = wrap_to_width(draw, main, main_f, int(W * 0.55))
     lh = text_size(draw, "Ag", main_f)[1] + int(H * 0.018)
-    block_h = lh * len(main_lines)
+    main_block_h = lh * len(main_lines)
+
+    # --- measure PUNCH (red kicker box above main) ---
+    pf = None; box_w = box_h = 0
+    if punch:
+        punch = punch.upper()
+        pf = font(FONT_MAIN, int(H * 0.058))
+        pw, ph = text_size(draw, punch, pf)
+        padx, pady = int(pw * 0.14), int(ph * 0.30)
+        box_w, box_h = pw + padx * 2, ph + pady * 2
 
     bottom_pad = int(H * 0.05)
-    sub_gap = int(H * 0.012)
-    # bottom edge of sub sits bottom_pad from frame bottom; main stacks above it
-    sub_y = H - bottom_pad - sub_h
-    main_bottom = sub_y - sub_gap if sub else H - bottom_pad
-    y = main_bottom - block_h
+    gap_sub = int(H * 0.012)
+    gap_punch = int(H * 0.016)
+
+    # anchor the whole cluster from the bottom up
+    sub_y = (H - bottom_pad - sub_h) if sub else (H - bottom_pad)
+    main_bottom = (sub_y - gap_sub) if sub else (H - bottom_pad)
+    main_top = main_bottom - main_block_h
+
+    # draw MAIN (white, heavy black outline)
+    y = main_top
     for line in main_lines:
         lw, _ = text_size(draw, line, main_f)
         draw_outlined(draw, ((W - lw)//2, y), line, main_f, WHITE, ow=max(5, main_f.size//13))
         y += lh
+
+    # draw SUB (bright gold, thick dark outline so it always reads)
     if sub:
         sw, _ = text_size(draw, sub, sub_f)
-        draw_outlined(draw, ((W - sw)//2, sub_y), sub, sub_f, GOLD, ow=4)
+        draw_outlined(draw, ((W - sw)//2, sub_y), sub, sub_f, GOLD, ow=max(5, sub_f.size//6))
 
-    # PUNCH word: black text in a solid red box, top-left
+    # draw PUNCH kicker box centered above main (clean, integrated, not floating in a corner)
     if punch:
-        punch = punch.upper()
-        pf = font(FONT_MAIN, int(H * 0.085))
+        bx = (W - box_w)//2
+        by = main_top - gap_punch - box_h
+        draw.rectangle([bx, by, bx + box_w, by + box_h], fill=RED)
         pw, ph = text_size(draw, punch, pf)
-        padx, pady = int(pw * 0.12), int(ph * 0.28)
-        bx, by = margin, int(H * 0.06)
-        draw.rectangle([bx, by, bx + pw + padx*2, by + ph + pady*2], fill=RED)
-        draw.text((bx + padx, by + pady - int(ph*0.1)), punch, font=pf, fill=BLACK)
+        draw.text((bx + (box_w - pw)//2, by + (box_h - ph)//2 - int(ph*0.12)), punch, font=pf, fill=BLACK)
 
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
     im.save(out_path)
