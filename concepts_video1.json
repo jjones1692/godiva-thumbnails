@@ -1,0 +1,38 @@
+[
+  {
+    "name": "v1_blocked_ftc",
+    "punch": "BLOCKED",
+    "main": "ONE DOCUMENT BLOCKED IT ALL",
+    "sub": "THEY NEVER TOLD YOU THIS EXISTS",
+    "left": "an official FTC affidavit document with a red BLOCKED stamp and a credit bureau letter in dark shadow",
+    "right": "a green APPROVED stamp and a clean credit report with a rising gold score arrow on a cream panel",
+    "expression": "confident direct eye contact"
+  },
+  {
+    "name": "v1_wiped_3bk",
+    "punch": "WIPED",
+    "main": "3 BANKRUPTCIES GONE AT ONCE",
+    "sub": "AND I NEVER COACHED HIM",
+    "left": "a credit report with three bankruptcy line items stamped in red and crossed out, dark shadow",
+    "right": "a clean credit report with a green checkmark and gold rising score arrow on a cream panel",
+    "expression": "calm confident slight smile"
+  },
+  {
+    "name": "v1_back_6mo",
+    "punch": "BACK",
+    "main": "I WENT DARK FOR 6 MONTHS",
+    "sub": "HERE IS WHAT I BUILT",
+    "left": "a dark calendar with six months crossed out and a phone showing zero posts, deep shadow",
+    "right": "a stack of funding documents and a gold dollar figure on a cream panel, green accents",
+    "expression": "serious direct stare"
+  },
+  {
+    "name": "v1_verified_lie",
+    "punch": "EXPOSED",
+    "main": "VERIFIED IS NOT FINAL",
+    "sub": "THE STEP THEY HOPE YOU SKIP",
+    "left": "a credit bureau letter stamped VERIFIED in red with a dark shadow over it",
+    "right": "the same item now removed with a green DELETED stamp and gold accent on a cream panel",
+    "expression": "knowing confident look"
+  }
+]
