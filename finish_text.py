@@ -25,6 +25,7 @@ from PIL import Image, ImageDraw, ImageFont
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONT_MAIN = os.path.join(HERE, "fonts", "Anton-Regular.ttf")
 FONT_SUB  = os.path.join(HERE, "fonts", "BarlowCondensed-SemiBold.ttf")
+FONT_GHOST = os.path.join(HERE, "fonts", "BebasNeue-Regular.ttf")
 
 GOLD = (242, 190, 60)
 RED  = (193, 39, 45)
@@ -68,6 +69,31 @@ def wrap_to_width(draw, text, f, max_w):
     if cur: lines.append(cur)
     return lines
 
+def draw_ghost(im, word, opacity=0.15, angle=-8, color=(238, 230, 214)):
+    """Large dramatic semi-transparent word set into the background atmosphere.
+    Font-rendered so it is always clean. Placed high so it never covers the lower text."""
+    W, H = im.size
+    word = (word or "").upper()
+    if not word:
+        return im
+    # fit Bebas to ~0.82 of width
+    size = int(H * 0.55)
+    while size > 40:
+        f = ImageFont.truetype(FONT_GHOST, size)
+        b = ImageDraw.Draw(im).textbbox((0, 0), word, font=f)
+        if (b[2] - b[0]) <= int(W * 0.82):
+            break
+        size -= 6
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    b = d.textbbox((0, 0), word, font=f)
+    tw, th = b[2] - b[0], b[3] - b[1]
+    cx, cy = W // 2, int(H * 0.30)
+    d.text((cx - tw // 2 - b[0], cy - th // 2 - b[1]), word, font=f,
+           fill=color + (int(255 * opacity),))
+    layer = layer.rotate(angle, expand=False, center=(cx, cy), resample=Image.BICUBIC)
+    return Image.alpha_composite(im.convert("RGBA"), layer).convert("RGB")
+
 def bottom_scrim(im, frac=0.42, strength=180):
     """Dark gradient over the bottom `frac` of the image so text always reads."""
     W, H = im.size
@@ -80,10 +106,12 @@ def bottom_scrim(im, frac=0.42, strength=180):
     black = Image.new("RGB", (W, H), (0, 0, 0))
     return Image.composite(black, im, alpha)
 
-def finish(image_path, punch, main, sub, out_path):
+def finish(image_path, punch, main, sub, out_path, ghost=False):
     im = Image.open(image_path).convert("RGB")
     W, H = im.size
     im = bottom_scrim(im)                      # guarantee contrast for the bottom text band
+    if ghost and punch:
+        im = draw_ghost(im, punch)             # optional dramatic background word
     draw = ImageDraw.Draw(im)
 
     # --- measure SUB (gold, very bottom) ---
@@ -103,18 +131,8 @@ def finish(image_path, punch, main, sub, out_path):
     lh = text_size(draw, "Ag", main_f)[1] + int(H * 0.018)
     main_block_h = lh * len(main_lines)
 
-    # --- measure PUNCH (red kicker box above main) ---
-    pf = None; box_w = box_h = 0
-    if punch:
-        punch = punch.upper()
-        pf = font(FONT_MAIN, int(H * 0.058))
-        pw, ph = text_size(draw, punch, pf)
-        padx, pady = int(pw * 0.14), int(ph * 0.30)
-        box_w, box_h = pw + padx * 2, ph + pady * 2
-
     bottom_pad = int(H * 0.05)
     gap_sub = int(H * 0.012)
-    gap_punch = int(H * 0.016)
 
     # anchor the whole cluster from the bottom up
     sub_y = (H - bottom_pad - sub_h) if sub else (H - bottom_pad)
@@ -133,14 +151,6 @@ def finish(image_path, punch, main, sub, out_path):
         sw, _ = text_size(draw, sub, sub_f)
         draw_outlined(draw, ((W - sw)//2, sub_y), sub, sub_f, GOLD, ow=max(5, sub_f.size//6))
 
-    # draw PUNCH kicker box centered above main (clean, integrated, not floating in a corner)
-    if punch:
-        bx = (W - box_w)//2
-        by = main_top - gap_punch - box_h
-        draw.rectangle([bx, by, bx + box_w, by + box_h], fill=RED)
-        pw, ph = text_size(draw, punch, pf)
-        draw.text((bx + (box_w - pw)//2, by + (box_h - ph)//2 - int(ph*0.12)), punch, font=pf, fill=BLACK)
-
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
     im.save(out_path)
     print(f"  finished -> {out_path}")
@@ -150,6 +160,7 @@ def main():
     ap.add_argument("--image"); ap.add_argument("--concepts")
     ap.add_argument("--punch", default=""); ap.add_argument("--main", default="")
     ap.add_argument("--sub", default=""); ap.add_argument("--out", default="outputs/final.png")
+    ap.add_argument("--ghost", action="store_true", help="dramatic low-opacity background word")
     args = ap.parse_args()
     for p in (FONT_MAIN, FONT_SUB):
         if not os.path.exists(p): raise SystemExit(f"Missing font: {p}")
@@ -160,9 +171,9 @@ def main():
             if not os.path.exists(scene):
                 print(f"  skip {name}: no scene render at {scene}"); continue
             finish(scene, c.get("punch",""), c.get("main",""), c.get("sub",""),
-                   f"outputs/{name}_final.png")
+                   f"outputs/{name}_final.png", ghost=args.ghost or c.get("ghost", False))
     else:
-        finish(args.image, args.punch, args.main, args.sub, args.out)
+        finish(args.image, args.punch, args.main, args.sub, args.out, ghost=args.ghost)
     print("Done.")
 
 if __name__ == "__main__":
