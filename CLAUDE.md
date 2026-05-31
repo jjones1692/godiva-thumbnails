@@ -61,3 +61,21 @@ Render a single custom concept:
 ## GitHub
 Repo: jjones1692/godiva-thumbnails
 .env, stills/, and outputs/ are gitignored. render-input/ is tracked (holds source stills).
+
+## HYBRID WORKFLOW — flawless text (recommended)
+AI cannot render long headlines reliably; it warps and doubles them. The fix:
+NB2 renders the scene with NO text, then finish_text.py stamps perfect text with a
+real font. Two steps:
+
+1. Render scene-only (clean, no headline text):
+   python render_nb2.py --still render-input/video1_still.png --concepts concepts_video1.json --scene-only --crop
+
+2. Stamp flawless text from the same concepts file:
+   python finish_text.py --concepts concepts_video1.json
+   (reads outputs/<name>.png, writes outputs/<name>_final.png)
+
+The *_final.png files are the deliverables: AI scene + perfect font text. Show James those.
+Fonts are bundled in fonts/ (Anton for headlines, Barlow Condensed for sub). pillow required.
+
+For one-shot text-in-AI (faster drafts, risk of warp on long headlines), omit --scene-only
+and skip step 2.

@@ -82,6 +82,7 @@ def load_key():
     return k
 
 def build_prompt(c):
+    scene_only = c.get("scene_only", False)
     expression = c.get("expression", "confident direct eye contact")
     left = c.get("left", "a red DENIED stamp and dark shadow representing the problem")
     right = c.get("right", "a green APPROVED stamp and gold accent representing the solution")
@@ -126,12 +127,19 @@ def build_prompt(c):
         "left problem zone, green and gold only in the right solution zone. Warm, "
         "documentary, never cold neon.\n\n"
 
-        "TEXT (spelled EXACTLY, crisp, bold, heavy condensed sans, undistorted):\n"
-        f"- \"{c['punch']}\" in heavy black condensed uppercase inside a solid bright-red box.\n"
-        f"- Main caption: \"{c['main']}\" as ONE solid clean block of massive white heavy "
-        "condensed uppercase with a thick black outline. Never split the headline across the "
-        "subject's body; keep it as one unbroken line or stacked block in clear open space.\n"
-        f"- Sub caption: \"{c['sub']}\" smaller, in gold or cream condensed uppercase.\n\n"
+        + (
+            "TEXT: Do NOT render any headline, caption, punch word, or any large title text "
+            "anywhere in the image. Leave the lower third and the side areas CLEAN and free of "
+            "title text so text can be added in post. Only incidental prop marks (a single STAMP "
+            "word on a document, a score number) are allowed. No big headline text at all.\n\n"
+            if scene_only else
+            "TEXT (spelled EXACTLY, crisp, bold, heavy condensed sans, undistorted):\n"
+            f"- \"{c['punch']}\" in heavy black condensed uppercase inside a solid bright-red box.\n"
+            f"- Main caption: \"{c['main']}\" as ONE solid clean block of massive white heavy "
+            "condensed uppercase with a thick black outline. Never split the headline across the "
+            "subject's body; keep it as one unbroken line or stacked block in clear open space.\n"
+            f"- Sub caption: \"{c['sub']}\" smaller, in gold or cream condensed uppercase.\n\n"
+        ) +
 
         "Keep trust signals (logos, stamps, forms) subtle and in the side zones, never "
         "overpowering the center or text.\n\n"
@@ -189,6 +197,7 @@ def main():
     ap.add_argument("--still", required=True)
     ap.add_argument("--concepts")
     ap.add_argument("--crop", action="store_true", help="center-crop output to exactly 1280x720")
+    ap.add_argument("--scene-only", action="store_true", help="render scene with NO headline text, for Canva finishing")
     ap.add_argument("--punch"); ap.add_argument("--main"); ap.add_argument("--sub")
     ap.add_argument("--left"); ap.add_argument("--right"); ap.add_argument("--expression")
     ap.add_argument("--style", default="classic", choices=list(STYLE_VARIANTS.keys()))
@@ -197,7 +206,9 @@ def main():
     key = load_key()
     if args.concepts:
         concepts = json.load(open(args.concepts))
-        print(f"Rendering {len(concepts)} concepts on Nano Banana 2...")
+        if args.scene_only:
+            for c in concepts: c["scene_only"] = True
+        print(f"Rendering {len(concepts)} concepts on Nano Banana 2... (scene_only={args.scene_only})")
         for i, c in enumerate(concepts, 1):
             name = c.get("name", f"concept_{i}")
             print(f"Concept {i} ({name}):")
@@ -206,7 +217,7 @@ def main():
         c = {"punch": args.punch or "DENIED", "main": args.main or "THEY TRIED ME",
              "sub": args.sub or "I FIGURED IT OUT", "left": args.left or "",
              "right": args.right or "", "expression": args.expression or "confident direct eye contact",
-             "style": args.style}
+             "style": args.style, "scene_only": args.scene_only}
         render(args.still, c, args.out, key, crop=args.crop)
     print("Done.")
 
