@@ -155,3 +155,19 @@ Every future thumbnail description follows this structure:
 ---
 
 *This spec governs the Godiva thumbnail system. The Cutout Pop is the subject treatment. The three-zone layout is the structure. Chocolate/gold/cream/bronze is the palette. Problem to Solution is the mood. Documentary, never hype.*
+
+---
+
+## STYLE VARIANTS (same layout, different visual bet)
+
+The three-zone Problem/Center/Solution layout is the constant. The styling on top of it is the variable. Assign each concept a `style` so a set of 4 becomes 4 distinct bets you can A/B test, not one template with swapped words. Pulled from 2026 thumbnail research, filtered to what fits a credit authority.
+
+- **cinematic_text** — Headline pulled INTO the scene, embedded in the lighting like a film title card. Three or four dominant words. Reads like a Netflix documentary still. Best for proof/number hooks.
+- **interface_trust** — Side zones rendered as real official interfaces (FTC affidavit, bureau letter, approval portal with a real score). Borrows the credibility of the format itself. Best for document/method hooks.
+- **anti_thumbnail** — Dark, quiet, restrained. Muted zones, deep shadow, subject tight with intense eye contact as the single brightest element. One short line. Wins by being calm in a loud feed. Best for comeback/silence/serious hooks.
+- **engineered_candid** — Believable captured-moment look. Subject physically holding or reacting to the real prop. Side elements feel like real objects, not overlays. No loud stamps. Best for reveal/reaction hooks.
+- **classic** — The standard designed three-zone composition with a lower-third text block. The recognizable baseline Godiva look.
+
+Rejected from the research (off-brand for a trusted credit teacher): warped faces (signals psychological/identity-crisis content), maximalist clutter and rainbow tier-lists (fight the documentary calm), and hyperreal MrBeast smiles (the era the audience is tired of).
+
+Set the style per concept in the concepts JSON, or pass `--style` for a single render.
