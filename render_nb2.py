@@ -96,11 +96,24 @@ def build_prompt(c):
         "gold chain, or shirt. Keep his exact likeness. His expression should read as: "
         f"{expression}.\n\n"
 
-        "SUBJECT TREATMENT (THE CUTOUT POP, apply all four): 1) clean edge cutout that "
-        "lifts him off the background; 2) a subtle bright rim light tracing his silhouette; "
-        "3) a soft outer glow or thin stroke around that edge; 4) a cinematic color grade "
-        "tying him and the scene into one frame. He sits CENTER, brightest and sharpest, "
-        "in crisp focus.\n\n"
+        "SUBJECT TREATMENT (THE CUTOUT POP, apply all four): 1) clean crisp edge cutout that "
+        "lifts him off the background; 2) a clearly visible bright rim light tracing his "
+        "silhouette; 3) a soft outer glow or thin stroke around that edge; 4) a cinematic "
+        "color grade. He sits CENTER, noticeably the BRIGHTEST and SHARPEST element, in "
+        "crisp focus, with generous negative space around him.\n\n"
+
+        "CRITICAL ANTI-GIBBERISH RULE: NEVER render readable body text, paragraphs, sentences, "
+        "or letter contents inside any document, report, screen, or form. AI-rendered body text "
+        "always comes out as garbled fake gibberish and instantly looks amateur and AI-made. "
+        "Props may carry ONLY: a single bold STAMP WORD (BLOCKED, APPROVED, DENIED, DELETED, "
+        "VERIFIED), a clean logo or seal shape, ONE large number (like 762), a green checkmark, "
+        "or a rising arrow. Leave all document bodies BLANK or suggested with soft blurred "
+        "abstract lines. Absolutely no fake words anywhere except the headline text specified below.\n\n"
+
+        "COMPOSITION, KEEP IT CLEAN: ONE single hero element per side zone, maximum. No stacks "
+        "of documents, no piles of props, no calendars plus phones plus arrows all at once. "
+        "Generous negative space. Simplicity reads premium, clutter reads amateur. One clean "
+        "prop per side, not five.\n\n"
 
         "THREE-ZONE LAYOUT (eye travels left to right, problem to solution):\n"
         f"- LEFT = PROBLEM: {left}. Reds and dark shadow tones.\n"
@@ -115,8 +128,9 @@ def build_prompt(c):
 
         "TEXT (spelled EXACTLY, crisp, bold, heavy condensed sans, undistorted):\n"
         f"- \"{c['punch']}\" in heavy black condensed uppercase inside a solid bright-red box.\n"
-        f"- Main caption: \"{c['main']}\" in massive white heavy condensed uppercase with a "
-        "thick black outline.\n"
+        f"- Main caption: \"{c['main']}\" as ONE solid clean block of massive white heavy "
+        "condensed uppercase with a thick black outline. Never split the headline across the "
+        "subject's body; keep it as one unbroken line or stacked block in clear open space.\n"
         f"- Sub caption: \"{c['sub']}\" smaller, in gold or cream condensed uppercase.\n\n"
 
         "Keep trust signals (logos, stamps, forms) subtle and in the side zones, never "

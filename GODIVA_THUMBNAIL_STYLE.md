@@ -171,3 +171,16 @@ The three-zone Problem/Center/Solution layout is the constant. The styling on to
 Rejected from the research (off-brand for a trusted credit teacher): warped faces (signals psychological/identity-crisis content), maximalist clutter and rainbow tier-lists (fight the documentary calm), and hyperreal MrBeast smiles (the era the audience is tired of).
 
 Set the style per concept in the concepts JSON, or pass `--style` for a single render.
+
+---
+
+## QUALITY RULES (what separates pro from AI-looking)
+
+Learned from comparing AI renders against finished hand-made thumbnails. These are now enforced in the engine.
+
+1. **No fake text in props (the #1 fix).** AI cannot render paragraph or body text; it always comes out as garbled gibberish and instantly looks amateur. Never put readable sentences inside documents, letters, reports, or screens. Props carry ONLY a bold stamp word (BLOCKED, APPROVED, DENIED, DELETED, VERIFIED), a logo or seal, one large number, a checkmark, or an arrow. Document bodies stay blank or softly blurred.
+2. **One hero element per side zone, max.** No document stacks, no calendar-plus-phone-plus-arrow pileups. Generous negative space. Simplicity reads premium; clutter reads amateur.
+3. **Headline as one clean block.** Never split the main caption across the subject's body. One unbroken line or a stacked block in open space. This is why the cleanest concepts always have single-line headlines.
+4. **Cutout Pop must actually pop.** Visible bright rim light, crisp edge, the subject clearly the brightest and sharpest thing in frame.
+
+If a fully hand-finished look is required (perfectly crisp document graphics, pixel-exact stamps), the highest-quality route is a hybrid: let Nano Banana generate the subject, background, and simple props, then layer precise text and clean stamp graphics in post (Canva). The rules above get pure-AI output most of the way there on their own.
