@@ -5,9 +5,10 @@
     "punch": "WIPED",
     "main": "3 BANKRUPTCIES GONE",
     "sub": "I NEVER COACHED HIM",
-    "left": "a credit report with a short 'Credit Report' label, its body left blank, marked with three bold red X strike-throughs down the page and a single red DENIED stamp, fading into shadow",
-    "right": "a clean credit report with a green checkmark and a gold rising score arrow",
-    "expression": "calm confident slight smile"
+    "left": "deep cinematic shadow with a single faint torn credit report edge, mostly empty dramatic negative space",
+    "right": "one clean spotlight-lit credit report showing a bold 762 and a small green upward arrow, the rest of the frame in moody darkness",
+    "expression": "calm confident slight smile, lit like a film still",
+    "ghost": true
   },
   {
     "name": "v1_interface_ftc",
