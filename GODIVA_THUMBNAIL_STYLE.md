@@ -184,3 +184,15 @@ Learned from comparing AI renders against finished hand-made thumbnails. These a
 4. **Cutout Pop must actually pop.** Visible bright rim light, crisp edge, the subject clearly the brightest and sharpest thing in frame.
 
 If a fully hand-finished look is required (perfectly crisp document graphics, pixel-exact stamps), the highest-quality route is a hybrid: let Nano Banana generate the subject, background, and simple props, then layer precise text and clean stamp graphics in post (Canva). The rules above get pure-AI output most of the way there on their own.
+
+---
+
+## SUBJECT REFINEMENT (standing preference, applied every render)
+
+Light, natural, flattering retouching is applied to the subject on every thumbnail. Identity stays locked, he must remain unmistakably the same man. The refinements:
+- Slim cheeks / reduce facial puffiness ~5 to 10 percent
+- Neaten and clean up the beard with crisp groomed edges
+- Smooth away wrinkles and fine lines (under-eye, forehead)
+- Keep natural skin texture, never plastic or airbrushed
+
+This is baked into the engine prompt. To adjust the amount, edit the FLATTERING FACE REFINEMENT block in render_nb2.py.

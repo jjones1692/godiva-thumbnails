@@ -93,9 +93,16 @@ def build_prompt(c):
         "style of a CINEMATIC FINANCIAL DOCUMENTARY. Serious, grounded, premium. "
         "Not neon, not MrBeast-loud, not cartoonish, not clickbait spam.\n\n"
 
-        "KEEP THE MAN IDENTICAL. Do not change his face, beard, glasses, head covering, "
-        "gold chain, or shirt. Keep his exact likeness. His expression should read as: "
-        f"{expression}.\n\n"
+        "PRESERVE HIS IDENTITY AND LIKENESS. He must remain unmistakably the same man, "
+        "same bone structure, same eyes, same glasses, head covering, gold chain, and shirt. "
+        f"His expression should read as: {expression}.\n\n"
+
+        "FLATTERING FACE REFINEMENT (subtle and natural, NEVER plastic or airbrushed): "
+        "slim the cheeks and reduce facial puffiness by roughly 5 to 10 percent; neaten and "
+        "clean up the beard with crisp, well-groomed edges; smooth away wrinkles and fine "
+        "lines under the eyes and on the forehead. Keep real, natural skin texture and his "
+        "true identity intact. He should look like the best, most rested version of himself, "
+        "still clearly and recognizably him. Do not change who he is, only refine.\n\n"
 
         "SUBJECT TREATMENT (THE CUTOUT POP, apply all four): 1) clean crisp edge cutout that "
         "lifts him off the background; 2) a clearly visible bright rim light tracing his "
