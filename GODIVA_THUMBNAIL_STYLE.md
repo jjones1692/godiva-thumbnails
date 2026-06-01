@@ -190,10 +190,10 @@ If a fully hand-finished look is required (perfectly crisp document graphics, pi
 
 ## SUBJECT REFINEMENT (standing preference, applied every render)
 
-Light, natural, flattering retouching is applied to the subject on every thumbnail. Identity stays locked, he must remain unmistakably the same man. The refinements:
-- Slim cheeks / reduce facial puffiness ~5 to 10 percent
-- Neaten and clean up the beard with crisp groomed edges
-- Smooth away wrinkles and fine lines (under-eye, forehead)
-- Keep natural skin texture, never plastic or airbrushed
+Light, natural, photographic retouching is applied to the subject on every thumbnail. Identity stays locked, he must remain unmistakably the same man. The refinements:
+- Slim cheeks and reduce facial / under-chin puffiness by 5 to 8 percent for a cleaner, more defined jawline (no more than that)
+- Neaten the beard with crisp groomed edges, clean cheek line and defined neckline
+- Remove wrinkles, fine lines, and creases (under-eye, forehead, around the mouth); de-puff the under-eye area
+- Keep exact bone structure, nose, eyes, lips, skin tone, and natural skin texture; never plastic or airbrushed, never a new or younger or slimmer face
 
-This is baked into the engine prompt. To adjust the amount, edit the FLATTERING FACE REFINEMENT block in render_nb2.py.
+This is baked into the engine prompt. To adjust the amount, edit the FACE REFINEMENT block in render_nb2.py.
