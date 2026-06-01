@@ -54,12 +54,32 @@ def main():
         ap.error("pass --video N or --concepts <path>")
 
     concepts = Path(args.concepts) if args.concepts else Path(f"concepts_video{args.video}.json")
-    still = Path(args.still) if args.still else Path(f"render-input/video{args.video}_still.png")
+
+    # Resolve the base still. Priority: explicit --still, then render-input/videoN_still.png,
+    # then the canonical render-input/video1_still.png. The fallback is ANNOUNCED, never
+    # silent, so you always know which face is being rendered.
+    if args.still:
+        still = Path(args.still)
+    elif args.video is not None:
+        named = Path(f"render-input/video{args.video}_still.png")
+        canonical = Path("render-input/video1_still.png")
+        if named.exists():
+            still = named
+        elif canonical.exists():
+            still = canonical
+            print(f"   NOTE: {named} not found. Using canonical still {canonical}. "
+                  f"If video {args.video} has its own shoot, drop it at {named} first.")
+        else:
+            still = named  # fails the existence check below with a clear message
+    else:
+        still = Path("render-input/video1_still.png")
 
     if not concepts.exists():
         sys.exit(f"!! concepts file not found: {concepts}")
     if not still.exists():
-        sys.exit(f"!! still not found: {still}")
+        sys.exit(f"!! no still found. Drop your still at render-input/video{args.video}_still.png "
+                 f"(or pass --still), then rerun.")
+    print(f"   still: {still}")
 
     data = json.loads(concepts.read_text())
     if not isinstance(data, list) or not (1 <= len(data) <= 6):
