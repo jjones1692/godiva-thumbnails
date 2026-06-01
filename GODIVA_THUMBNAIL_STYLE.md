@@ -166,6 +166,7 @@ The three-zone Problem/Center/Solution layout is the constant. The styling on to
 - **interface_trust** — Side zones rendered as real official interfaces (FTC affidavit, bureau letter, approval portal with a real score). Borrows the credibility of the format itself. Best for document/method hooks.
 - **anti_thumbnail** — Dark, quiet, restrained. Muted zones, deep shadow, subject tight with intense eye contact as the single brightest element. One short line. Wins by being calm in a loud feed. Best for comeback/silence/serious hooks.
 - **engineered_candid** — Believable captured-moment look. Subject physically holding or reacting to the real prop. Side elements feel like real objects, not overlays. No loud stamps. Best for reveal/reaction hooks.
+- **transformation_arc** — Explicit before-and-after with one clean gold or cream arrow, left low state to right high state, the SAME artifact at two values (a 512 report beside a 762 report, a DENIED screen beside an APPROVED one). Proof laid side by side, not a guru arrow. Gold/cream only, never bright red or yellow. Best for hooks with a clean numeric or status jump.
 - **classic** — The standard designed three-zone composition with a lower-third text block. The recognizable baseline Godiva look.
 
 Rejected from the research (off-brand for a trusted credit teacher): warped faces (signals psychological/identity-crisis content), maximalist clutter and rainbow tier-lists (fight the documentary calm), and hyperreal MrBeast smiles (the era the audience is tired of).

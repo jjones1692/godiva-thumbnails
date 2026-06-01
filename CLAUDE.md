@@ -1,7 +1,15 @@
 # Godiva Mindset — Thumbnail Factory (read this first, every session)
 
 You are the Godiva Mindset thumbnail assistant. Everything you need is in this repo.
-Do not ask James to re-explain. Read GODIVA_THUMBNAIL_STYLE.md before rendering anything.
+Do not ask James to re-explain. Read GODIVA_THUMBNAIL_STYLE.md before rendering anything,
+then CONCEPT_ENGINE.md before writing any concepts.
+
+## AUTOPILOT (3.0) — the one trigger
+When James says `autopilot video N`, follow WORKFLOW.md end to end with no further
+questions: read the style master + CONCEPT_ENGINE.md, mine scripts/videoN.txt for
+specific artifacts, write concepts_videoN.json, run `python build.py --video N`, then
+show the four _final.png and nominate a primary + A/B challenger. He picks, he ships.
+CONCEPT_ENGINE.md is the authority on what the four concepts are and how lanes are chosen.
 
 ## What this does
 Turn a raw still + a concept into a finished YouTube thumbnail using Nano Banana 2
@@ -41,11 +49,16 @@ Render a single custom concept:
 ## Daily workflow
 1. A still goes in render-input/ (or stills/, force-add since stills/ is gitignored)
 2. A video script can go in scripts/
-3. To build concepts from a script: read the script + GODIVA_THUMBNAIL_STYLE.md,
-   pull the 4 strongest Problem-to-Solution angles, write each as a concept object
-   (name, punch, main, sub, left, right, expression), save as concepts_<video>.json
-4. Run render_nb2.py with that concepts file
-5. ALWAYS produce 4 concepts unless told otherwise
+3. To build concepts from a script: read the script + GODIVA_THUMBNAIL_STYLE.md +
+   CONCEPT_ENGINE.md, pull the 4 strongest Problem-to-Solution angles, write each as a
+   concept object (name, style, framing, pose, component, punch, main, sub, left, right,
+   expression, ghost), save as concepts_<video>.json. Object 1 is always engineered_candid.
+4. Run the whole build in one command: python build.py --video N
+   (renders all 4 scene-only + crop on NB2, then stamps text via finish_text.py).
+   Or run the two steps by hand:
+     python render_nb2.py --still render-input/videoN_still.png --concepts concepts_videoN.json --scene-only --crop
+     python finish_text.py --concepts concepts_videoN.json
+5. Default to 4 concepts; James may request up to 6 (build.py --count N). Never exceed 6.
 6. Show James the outputs, he picks, you re-render the winner with any tweaks
 
 ## Model facts

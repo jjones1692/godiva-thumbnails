@@ -65,9 +65,89 @@ STYLE_VARIANTS = {
         "no flat UI text bars. Light, tasteful decoration on a real-looking photo. It should "
         "look like a frame you genuinely captured in the moment.",
 
+    "transformation_arc":
+        "STYLE TREATMENT — TRANSFORMATION ARC (PROOF, NOT HYPE): A clear left-to-right "
+        "before-and-after built on ONE clean sweeping arrow rendered in GOLD or CREAM, "
+        "never bright guru red or yellow. Show the SAME artifact at two values so it reads "
+        "as undeniable proof: a low credit report or score on the LEFT and the same report "
+        "at a high score on the RIGHT; or a DENIED screen left and an APPROVED screen right. "
+        "The man is centered, calm, present between the two states or gesturing toward them. "
+        "Chocolate cinematic background, restrained grade, soft rim light. The arrow does the "
+        "eye-path work, the matched documents do the convincing. No neon, no loud stamps, no "
+        "shouting. It should feel like evidence laid side by side, not a get-rich ad.",
+
     "classic":
         "STYLE TREATMENT — CLASSIC GODIVA: Clean designed three-zone composition with a "
         "lower-third text block, bold and direct. The standard recognizable Godiva look.",
+}
+
+# FRAMING controls the SILHOUETTE of the shot so a batch looks like several different
+# pictures, not one layout repainted. Each concept carries "framing"; build_prompt swaps
+# the subject placement sentence and the layout block based on it. Default: centered.
+FRAMING_BLOCKS = {
+    "centered": {
+        "placement": "He sits CENTER, noticeably the BRIGHTEST and SHARPEST element, in "
+                     "crisp focus, with generous negative space around him.",
+        "layout": "THREE-ZONE LAYOUT (eye travels left to right, problem to solution):\n"
+                  "- LEFT = PROBLEM: {left}. Reds and dark shadow tones.\n"
+                  "- CENTER = THE MAN, brightest, sharpest, main focus.\n"
+                  "- RIGHT = SOLUTION: {right}. Green, gold, and cream tones.\n\n",
+    },
+    "tight_face": {
+        "placement": "He is framed TIGHT, head and shoulders filling most of the vertical "
+                     "frame, the dominant mass of the image, in crisp focus. This is a "
+                     "close, intense portrait, NOT a wide centered three-zone shot.",
+        "layout": "SINGLE-CUE LAYOUT (not three symmetric zones): keep the background dark "
+                  "and restrained with exactly ONE supporting element, {right}, kept smaller "
+                  "and dimmer than him and set off to one side. No matching left/right "
+                  "flanking props. His face and direct eye contact carry the frame.\n\n",
+    },
+    "subject_left": {
+        "placement": "He stands on the LEFT THIRD of the frame, turned slightly inward "
+                     "toward center, sharp and rim-lit. He is deliberately NOT centered.",
+        "layout": "OFF-CENTER HERO LAYOUT (deliberately asymmetric): the RIGHT two-thirds of "
+                  "the frame is dominated by ONE single hero element, {right}, rendered large "
+                  "and cinematic with warm light and breathing negative space. Any problem cue "
+                  "({left}) is small and faint near him, or omitted entirely.\n\n",
+    },
+    "subject_right": {
+        "placement": "He stands on the RIGHT THIRD of the frame, turned slightly inward "
+                     "toward center, sharp and rim-lit. He is deliberately NOT centered.",
+        "layout": "OFF-CENTER HERO LAYOUT (deliberately asymmetric): the LEFT two-thirds of "
+                  "the frame is dominated by ONE single hero element, {left}, rendered large "
+                  "and cinematic with negative space. Any solution cue ({right}) is small and "
+                  "faint near him, or omitted entirely.\n\n",
+    },
+    "split": {
+        "placement": "He is set slightly smaller and centered ON the dividing seam of a hard "
+                     "left/right split, strongly rim-lit so he separates cleanly from both "
+                     "halves.",
+        "layout": "TRUE BEFORE/AFTER SPLIT (not center-flanked): divide the frame down the "
+                  "middle into two comparable halves of the SAME kind of artifact. LEFT HALF "
+                  "= the BEFORE state: {left}, in red and shadow. RIGHT HALF = the AFTER "
+                  "state: {right}, in green, gold and cream. The contrast between the two "
+                  "halves IS the composition.\n\n",
+    },
+}
+
+# POSE controls the GESTURE (hands and body). It is honored faithfully only when the source
+# still actually shows it; the prompt asks to preserve, not invent, his hands. Default:
+# authority (settled), the safest from a single neutral still.
+POSE_BLOCKS = {
+    "authority": "GESTURE: keep his hands and body as a calm, settled, authoritative posture, "
+                 "arms relaxed or lightly crossed, no exaggerated motion. Preserve his real "
+                 "hands exactly as in the source photo; do not invent new hand positions.",
+    "presenting": "GESTURE: he is holding or presenting the key document toward the camera, as "
+                  "in the source photo. Keep his real hands and fingers exactly as shot, clean "
+                  "and undistorted; do not redraw or add fingers.",
+    "pointing": "GESTURE: he is pointing toward the key element or number, directing the eye, "
+                "as in the source photo. Preserve his real pointing hand exactly as shot; do "
+                "not invent or warp fingers.",
+    "open_palm": "GESTURE: one open palm raised in a calm 'here is the truth' explaining "
+                 "gesture, as in the source photo. Keep his real hand exactly as shot, "
+                 "undistorted.",
+    "considering": "GESTURE: a hand resting near his chin in a considered, weighing posture, "
+                   "as in the source photo. Preserve his real hand exactly as shot.",
 }
 
 def load_key():
@@ -88,6 +168,11 @@ def build_prompt(c):
     right = c.get("right", "a green APPROVED stamp and gold accent representing the solution")
     style_key = c.get("style", "classic")
     style_block = STYLE_VARIANTS.get(style_key, STYLE_VARIANTS["classic"])
+    framing_key = c.get("framing", "centered")
+    fb = FRAMING_BLOCKS.get(framing_key, FRAMING_BLOCKS["centered"])
+    placement = fb["placement"]
+    layout_block = fb["layout"].format(left=left, right=right)
+    pose_block = POSE_BLOCKS.get(c.get("pose", "authority"), POSE_BLOCKS["authority"])
     return (
         "Transform the attached photo into a high-CTR 16:9 YouTube thumbnail in the "
         "style of a CINEMATIC FINANCIAL DOCUMENTARY. Serious, grounded, premium. "
@@ -107,8 +192,9 @@ def build_prompt(c):
         "SUBJECT TREATMENT (THE CUTOUT POP, apply all four): 1) clean crisp edge cutout that "
         "lifts him off the background; 2) a clearly visible bright rim light tracing his "
         "silhouette; 3) a soft outer glow or thin stroke around that edge; 4) a cinematic "
-        "color grade. He sits CENTER, noticeably the BRIGHTEST and SHARPEST element, in "
-        "crisp focus, with generous negative space around him.\n\n"
+        f"color grade. {placement}\n\n"
+
+        f"{pose_block}\n\n"
 
         "CRITICAL ANTI-GIBBERISH RULE (the #1 thing that makes thumbnails look AI): On any "
         "document, report, screen, or form, the ONLY text allowed is: a SHORT 1 to 2 word label "
@@ -130,10 +216,7 @@ def build_prompt(c):
         "outcome (e.g. a DELETED page), the other zone must show something else (a higher score, "
         "a clean report, a funding doc, a green check), so every prop adds new information.\n\n"
 
-        "THREE-ZONE LAYOUT (eye travels left to right, problem to solution):\n"
-        f"- LEFT = PROBLEM: {left}. Reds and dark shadow tones.\n"
-        "- CENTER = THE MAN, brightest, sharpest, main focus.\n"
-        f"- RIGHT = SOLUTION: {right}. Green, gold, and cream tones.\n\n"
+        f"{layout_block}"
 
         f"{style_block}\n\n"
 

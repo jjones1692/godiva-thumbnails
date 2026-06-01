@@ -6,8 +6,13 @@ Drop in a still. Give the instructions. Get the thumbnail. That's the whole job.
 
 ## What's in this folder
 
-- `godiva_thumbnail.py` — the engine. Calls Nano Banana 2, saves a 1280x720 thumbnail.
+- `render_nb2.py` — the engine. Calls Nano Banana 2, renders scene-only or full, 1280x720.
+- `finish_text.py` — stamps flawless font-rendered headline + gold sub (and optional ghost word).
+- `build.py` — one command: `python build.py --video N` renders all 4 scenes then finishes text.
+- `CONCEPT_ENGINE.md` — the brain. How to turn a script into 4 specific concepts (read this).
+- `WORKFLOW.md` — the autopilot trigger and the step-by-step run.
 - `Godiva_Thumbnail_Prompt_System.md` — the playbook. How to write the instructions.
+- `godiva_thumbnail.py` — retired older engine, kept for reference only. Use render_nb2.py.
 - `stills/` — put your raw photos here.
 - `outputs/` — finished thumbnails land here.
 - `requirements.txt`, `.env.example`, `.gitignore` — setup files, ignore unless setting up.

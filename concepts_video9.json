@@ -1,0 +1,58 @@
+[
+  {
+    "name": "v9_dfy_run_it",
+    "style": "engineered_candid",
+    "framing": "centered",
+    "pose": "presenting",
+    "component": "notification",
+    "punch": "DFY",
+    "main": "YOU ASKED ME TO RUN IT",
+    "sub": "DONE FOR YOU IS COMING",
+    "left": "a phone screen showing a short stack of incoming message requests, dim, only soft grey text bars and a single small unread dot, no legible words",
+    "right": "one credit report page stamped DELETED beside a clean report showing a bold 762, with a small gold seal and a checkmark",
+    "expression": "calm, settled, knowing look straight to camera",
+    "ghost": false
+  },
+  {
+    "name": "v9_new_lane_split",
+    "style": "transformation_arc",
+    "framing": "split",
+    "pose": "authority",
+    "component": "before_after_card",
+    "punch": "PIVOT",
+    "main": "SAME MIND. NEW LANE.",
+    "sub": "READING MARKETS LIKE CREDIT FILES",
+    "left": "an Experian-style credit report with a low 520 and a red DENIED stamp, red and shadow",
+    "right": "a portfolio growth screen with a rising green line climbing to a bold 790 and a green checkmark",
+    "expression": "composed, slight knowing confidence",
+    "ghost": false
+  },
+  {
+    "name": "v9_inside_system",
+    "style": "interface_trust",
+    "framing": "tight_face",
+    "pose": "considering",
+    "component": "interface_panel",
+    "punch": "INSIDE",
+    "main": "I GOT INSIDE THE SYSTEM",
+    "sub": "NOT A PASSENGER ANYMORE",
+    "left": "",
+    "right": "one realistic data-furnisher back-end panel behind him, a single bureau interface with a small green VERIFIED chip and one score field, kept dim and secondary to his face",
+    "expression": "intense, direct, serious eye contact",
+    "ghost": false
+  },
+  {
+    "name": "v9_something_bigger",
+    "style": "cinematic_text",
+    "framing": "subject_left",
+    "pose": "pointing",
+    "component": "hero_object",
+    "punch": "BIGGER",
+    "main": "I BUILT SOMETHING BIGGER",
+    "sub": "CREDIT WAS JUST THE FOUNDATION",
+    "left": "a small faint credit report corner showing 762 near him, low and understated",
+    "right": "one tall gold-lit financial tower rising into warm light, cinematic, with open negative space around it",
+    "expression": "calm, forward-looking, quietly confident",
+    "ghost": false
+  }
+]
