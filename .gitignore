@@ -15,3 +15,7 @@ __pycache__/
 *.prev
 drop/*
 !drop/README.txt
+
+# Envato assets fetched per-machine via MCP, not versioned
+assets/envato/*
+!assets/envato/.gitkeep

@@ -24,10 +24,14 @@ That's it.
    DIVERSITY MANDATE (>=3 framings, distinct components, varied expression; pose varies
    only if multiple stills were dropped, else hold pose and lean on the other axes).
    Run the self-check gate; fix anything that fails.
-4. `python build.py --video N`
+4. For any concept with an `asset` block, resolve its Envato item via the connected Envato
+   MCP (search e.g. "credit dashboard UI mockup", "approved stamp png", "growth chart"),
+   download it to `assets/envato/<id>.png` so the id matches the file. Prefer transparent
+   PNGs. Only network step; runs on James's machine.
+5. `python build.py --video N`
    Renders every concept scene-only + cropped on NB2 (matched pose still when present),
    stamps text, writes `outputs/<name>_final.png`.
-5. Show the finals. Nominate a PRIMARY and an A/B CHALLENGER, one line each, rest in one
+6. Show the finals. Nominate a PRIMARY and an A/B CHALLENGER, one line each, rest in one
    line. James picks and ships.
 
 ## Re-running or refreshing a video

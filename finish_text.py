@@ -21,6 +21,10 @@ in the open zones a scene-only render leaves clear.
 """
 import argparse, json, os, textwrap
 from PIL import Image, ImageDraw, ImageFont
+try:
+    from envato_assets import load_asset_rgba
+except Exception:
+    load_asset_rgba = lambda _id: None  # asset layering optional; degrade gracefully
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONT_MAIN = os.path.join(HERE, "fonts", "Anton-Regular.ttf")
@@ -94,6 +98,27 @@ def draw_ghost(im, word, opacity=0.15, angle=-8, color=(238, 230, 214)):
     layer = layer.rotate(angle, expand=False, center=(cx, cy), resample=Image.BICUBIC)
     return Image.alpha_composite(im.convert("RGBA"), layer).convert("RGB")
 
+def layer_asset(im, asset, W, H):
+    """Composite a real Envato asset (id, zone, scale) on top of the scene, BEFORE text.
+    Stays razor-sharp because nothing re-renders it. No-op if file isn't on disk yet."""
+    if not asset or not asset.get("id"):
+        return im
+    a = load_asset_rgba(asset["id"])
+    if a is None:
+        print(f"   note: envato asset '{asset.get('id')}' not on disk yet, skipping layer.")
+        return im
+    zone = asset.get("zone", "right"); scale = float(asset.get("scale", 0.42))
+    target_w = max(1, int(W * scale)); ratio = target_w / a.width
+    a = a.resize((target_w, max(1, int(a.height * ratio))), Image.LANCZOS)
+    y = int(H * 0.10)
+    if zone == "left": x = int(W * 0.02)
+    elif zone == "right": x = int(W - target_w - W * 0.02)
+    elif zone == "full": x = (W - target_w)//2; y = int(H * 0.04)
+    else: x = (W - target_w)//2
+    base = im.convert("RGBA"); base.alpha_composite(a, (x, max(0, y)))
+    return base.convert("RGB")
+
+
 def bottom_scrim(im, frac=0.42, strength=180):
     """Dark gradient over the bottom `frac` of the image so text always reads."""
     W, H = im.size
@@ -106,10 +131,12 @@ def bottom_scrim(im, frac=0.42, strength=180):
     black = Image.new("RGB", (W, H), (0, 0, 0))
     return Image.composite(black, im, alpha)
 
-def finish(image_path, punch, main, sub, out_path, ghost=False):
+def finish(image_path, punch, main, sub, out_path, ghost=False, asset=None):
     im = Image.open(image_path).convert("RGB")
     W, H = im.size
     im = bottom_scrim(im)                      # guarantee contrast for the bottom text band
+    if asset:
+        im = layer_asset(im, asset, W, H)      # real Envato asset on top, under text
     if ghost and punch:
         im = draw_ghost(im, punch)             # optional dramatic background word
     draw = ImageDraw.Draw(im)
@@ -171,7 +198,7 @@ def main():
             if not os.path.exists(scene):
                 print(f"  skip {name}: no scene render at {scene}"); continue
             finish(scene, c.get("punch",""), c.get("main",""), c.get("sub",""),
-                   f"outputs/{name}_final.png", ghost=args.ghost or c.get("ghost", False))
+                   f"outputs/{name}_final.png", ghost=args.ghost or c.get("ghost", False), asset=c.get("asset"))
     else:
         finish(args.image, args.punch, args.main, args.sub, args.out, ghost=args.ghost)
     print("Done.")

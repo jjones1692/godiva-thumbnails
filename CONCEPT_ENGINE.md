@@ -129,6 +129,39 @@ Banned, off-brand for this audience: tier lists, rainbow rankings, burning maps,
 gimmicks, lifestyle flex props (stacks of cash fanned for show, lying back). Those read as
 guru bait to a burned audience.
 
+## ENVATO ASSETS (real assets layered on top, for crispness)
+
+Generated props soften and garble text. For the components where sharpness is the trust
+signal, use a REAL Envato asset layered on top of the NB2 scene instead of letting the
+model draw it. Priority components:
+
+- `interface_panel` — real UI / dashboard / app-screen mockup.
+- `stamped_document` / `marked_up_document` — real rubber-stamp or document graphic.
+- `before_after_card` — real chart / graph / data-card asset.
+
+Leave `hero_object` and atmosphere (buildings, keys, lighting, the man) to NB2; a stock
+comp looks pasted, NB2 renders it into the scene light.
+
+When a concept should use a real asset, add an `asset` block:
+
+```json
+"asset": { "type": "interface_panel", "id": "<envato_id>", "zone": "right", "scale": 0.46 }
+```
+
+- `id` — the Elements item id. Claude Code resolves and downloads it via the connected
+  Envato MCP into `assets/envato/<id>.png` before the build.
+- `zone` — left | right | center | full, matched to framing (split -> after-state right;
+  tight_face -> a panel behind one shoulder, never over the face).
+- `scale` — fraction of canvas width, 0.2 to 0.55.
+
+`finish_text.py` layers the asset AFTER the scene render and BEFORE the headline, so it
+stays pixel-sharp and text sits on top. Missing file = build still finishes the scene and
+notes it. Keep the NB2 scene description light in whatever zone an asset will cover.
+
+DISCOVERY NOTE: the Elements MCP is the path that both finds and downloads Elements assets.
+The optional ENVATO_API_TOKEN in .env only searches the Envato MARKET catalog (metadata,
+no Elements download); it is a lookup convenience, not the asset source.
+
 ## GESTURE KIT (the `pose` values, real only if shot)
 
 These map to the stills James shoots on record day. Composed, never guru. See
