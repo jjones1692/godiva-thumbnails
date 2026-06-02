@@ -74,6 +74,11 @@ import urllib.parse as _urlparse
 
 def _envato_token():
     tok = os.environ.get("ENVATO_API_TOKEN", "").strip()
+    if not tok and os.path.exists(".env"):
+        for line in open(".env"):
+            line = line.strip()
+            if line.startswith("ENVATO_API_TOKEN"):
+                tok = line.split("=", 1)[1].strip().strip('"').strip("'")
     return tok or None
 
 
