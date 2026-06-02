@@ -37,9 +37,17 @@
     "main": "THREE BANKRUPTCIES. GONE.",
     "sub": "EQUIFAX CLEARED THEM ALL",
     "left": "",
-    "right": "one dim Equifax-style report panel set to one side behind him, three bankruptcy lines struck through, a small green REMOVED chip and one clean score field, kept secondary to his face",
+    "right": "leave this area mostly clean and dim, a real report panel will be composited here in post",
     "expression": "intense, direct, locked eye contact, no smile",
-    "ghost": false
+    "ghost": false,
+    "asset": {
+      "type": "interface_panel",
+      "envato_query": "credit score report dashboard ui mockup",
+      "itemType": "graphic-templates",
+      "id": "bankruptcies_panel",
+      "zone": "right",
+      "scale": 0.4
+    }
   },
   {
     "name": "v1_went_dark",
