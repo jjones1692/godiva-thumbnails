@@ -10,3 +10,8 @@ outputs/*
 # Python junk
 __pycache__/
 *.pyc
+
+# ingest backups and drop inbox contents (keep the folder + README)
+*.prev
+drop/*
+!drop/README.txt

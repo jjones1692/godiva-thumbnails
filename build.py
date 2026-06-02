@@ -56,23 +56,24 @@ def main():
     concepts = Path(args.concepts) if args.concepts else Path(f"concepts_video{args.video}.json")
 
     # Resolve the base still. Priority: explicit --still, then render-input/videoN_still.png,
-    # then the canonical render-input/video1_still.png. The fallback is ANNOUNCED, never
-    # silent, so you always know which face is being rendered.
+    # then the dedicated render-input/_canonical_still.png. Using a dedicated canonical file
+    # (not video1's) means dropping a still for one video never changes another video's face.
+    # The fallback is ANNOUNCED, never silent, so you always know which face is rendering.
     if args.still:
         still = Path(args.still)
     elif args.video is not None:
         named = Path(f"render-input/video{args.video}_still.png")
-        canonical = Path("render-input/video1_still.png")
+        canonical = Path("render-input/_canonical_still.png")
         if named.exists():
             still = named
         elif canonical.exists():
             still = canonical
             print(f"   NOTE: {named} not found. Using canonical still {canonical}. "
-                  f"If video {args.video} has its own shoot, drop it at {named} first.")
+                  f"Drop video {args.video}'s own still in drop/ and run ingest.py to fix.")
         else:
             still = named  # fails the existence check below with a clear message
     else:
-        still = Path("render-input/video1_still.png")
+        still = Path("render-input/_canonical_still.png")
 
     if not concepts.exists():
         sys.exit(f"!! concepts file not found: {concepts}")
