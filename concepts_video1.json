@@ -8,9 +8,9 @@
     "punch": "SWEEP",
     "main": "THE FEDS DIDN'T DO A SWEEP",
     "sub": "I DID. THE SWEEP PROTOCOL",
-    "left": "a credit report tradeline page stamped VERIFIED in red, dark shadow, the dead-end the bureau keeps returning",
-    "right": "an FTC affidavit page stamped BLOCKED with a small green official seal and an FCRA 605B reference, clean and authoritative",
-    "expression": "calm, knowing, a slight controlled smirk",
+    "left": "a credit report tradeline page stamped VERIFIED in red, deep shadow, the dead-end the bureau keeps returning",
+    "right": "an FTC affidavit page stamped BLOCKED with a small green official seal and a 605B reference tag, clean and authoritative",
+    "expression": "calm, knowing, a slight controlled half-smile, eyes steady on camera",
     "ghost": false
   },
   {
@@ -24,7 +24,7 @@
     "sub": "THE FTC AFFIDAVIT FORCES A BLOCK",
     "left": "the same credit account stamped VERIFIED in red, shadowed, a dead end",
     "right": "the exact same account now stamped BLOCKED in green with a small FTC seal and a 605B tag",
-    "expression": "composed, serious, certain",
+    "expression": "composed, serious, certain, jaw set",
     "ghost": false
   },
   {
@@ -37,8 +37,8 @@
     "main": "THREE BANKRUPTCIES. GONE.",
     "sub": "EQUIFAX CLEARED THEM ALL",
     "left": "",
-    "right": "one dim Equifax-style report panel set behind him to one side, three bankruptcy lines struck through, a small green REMOVED chip and one clean score field, kept secondary to his face",
-    "expression": "intense, direct, serious eye contact",
+    "right": "one dim Equifax-style report panel set to one side behind him, three bankruptcy lines struck through, a small green REMOVED chip and one clean score field, kept secondary to his face",
+    "expression": "intense, direct, locked eye contact, no smile",
     "ghost": false
   },
   {
@@ -50,9 +50,9 @@
     "punch": "BACK",
     "main": "I WENT DARK SIX MONTHS",
     "sub": "THE SWEEP KEPT RUNNING",
-    "left": "a dim phone screen showing a stack of incoming SWEEP comments still arriving over months, soft grey text bars with a single legible word SWEEP and one small unread dot, no other legible text",
+    "left": "a dim phone screen showing a stack of incoming comments still arriving over months, soft grey message bars with a single legible word SWEEP and one small unread dot, no other legible text",
     "right": "",
-    "expression": "serious, no smile, a slight forward lean",
+    "expression": "serious, no smile, a slight forward lean, quiet intensity",
     "ghost": false
   }
 ]
