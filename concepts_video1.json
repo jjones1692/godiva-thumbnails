@@ -1,43 +1,58 @@
 [
   {
-    "name": "v1_cinematic_3bk",
-    "style": "cinematic_text",
-    "punch": "WIPED",
-    "main": "3 BANKRUPTCIES GONE",
-    "sub": "I NEVER COACHED HIM",
-    "left": "deep cinematic shadow with a single faint torn credit report edge, mostly empty dramatic negative space",
-    "right": "one clean spotlight-lit credit report showing a bold 762 and a small green upward arrow, the rest of the frame in moody darkness",
-    "expression": "calm confident slight smile, lit like a film still",
-    "ghost": true
-  },
-  {
-    "name": "v1_interface_ftc",
-    "style": "interface_trust",
-    "punch": "BLOCKED",
-    "main": "ONE DOCUMENT BLOCKED IT ALL",
-    "sub": "THEY NEVER TOLD YOU",
-    "left": "a realistic official FTC identity theft affidavit with a red BLOCKED stamp and a seal",
-    "right": "an official credit bureau approval screen showing a green APPROVED status and a 762 score",
-    "expression": "confident direct eye contact"
-  },
-  {
-    "name": "v1_anti_6mo",
-    "style": "anti_thumbnail",
-    "punch": "BACK",
-    "main": "I WENT DARK 6 MONTHS",
-    "sub": "HERE IS WHAT I BUILT",
-    "left": "a faint dark calendar with six months quietly crossed out, deep shadow",
-    "right": "a dimly lit stack of funding documents with a subtle gold dollar figure",
-    "expression": "serious intense direct stare"
-  },
-  {
-    "name": "v1_candid_verified",
+    "name": "v1_i_did_the_sweep",
     "style": "engineered_candid",
-    "punch": "EXPOSED",
+    "framing": "centered",
+    "pose": "open_palm",
+    "component": "stamped_document",
+    "punch": "SWEEP",
+    "main": "THE FEDS DIDN'T DO A SWEEP",
+    "sub": "I DID. THE SWEEP PROTOCOL",
+    "left": "a credit report tradeline page stamped VERIFIED in red, dark shadow, the dead-end the bureau keeps returning",
+    "right": "an FTC affidavit page stamped BLOCKED with a small green official seal and an FCRA 605B reference, clean and authoritative",
+    "expression": "calm, knowing, a slight controlled smirk",
+    "ghost": false
+  },
+  {
+    "name": "v1_verified_not_final",
+    "style": "transformation_arc",
+    "framing": "split",
+    "pose": "open_palm",
+    "component": "before_after_card",
+    "punch": "BLOCKED",
     "main": "VERIFIED IS NOT FINAL",
-    "sub": "THE STEP THEY SKIP",
-    "left": "him holding up a credit bureau letter stamped VERIFIED in red",
-    "right": "on the right a clean updated credit report showing a higher score and a small green upward arrow; and a single page stamped DELETED resting casually on the desk beside him as a candid touch",
-    "expression": "knowing confident look mid-explanation"
+    "sub": "THE FTC AFFIDAVIT FORCES A BLOCK",
+    "left": "the same credit account stamped VERIFIED in red, shadowed, a dead end",
+    "right": "the exact same account now stamped BLOCKED in green with a small FTC seal and a 605B tag",
+    "expression": "composed, serious, certain",
+    "ghost": false
+  },
+  {
+    "name": "v1_three_bankruptcies",
+    "style": "interface_trust",
+    "framing": "tight_face",
+    "pose": "open_palm",
+    "component": "interface_panel",
+    "punch": "GONE",
+    "main": "THREE BANKRUPTCIES. GONE.",
+    "sub": "EQUIFAX CLEARED THEM ALL",
+    "left": "",
+    "right": "one dim Equifax-style report panel set behind him to one side, three bankruptcy lines struck through, a small green REMOVED chip and one clean score field, kept secondary to his face",
+    "expression": "intense, direct, serious eye contact",
+    "ghost": false
+  },
+  {
+    "name": "v1_went_dark",
+    "style": "anti_thumbnail",
+    "framing": "subject_right",
+    "pose": "open_palm",
+    "component": "notification",
+    "punch": "BACK",
+    "main": "I WENT DARK SIX MONTHS",
+    "sub": "THE SWEEP KEPT RUNNING",
+    "left": "a dim phone screen showing a stack of incoming SWEEP comments still arriving over months, soft grey text bars with a single legible word SWEEP and one small unread dot, no other legible text",
+    "right": "",
+    "expression": "serious, no smile, a slight forward lean",
+    "ghost": false
   }
 ]
