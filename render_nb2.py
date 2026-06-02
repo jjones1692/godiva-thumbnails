@@ -161,9 +161,20 @@ def load_key():
         sys.exit("GEMINI_API_KEY not found. Put it in .env or export it.")
     return k
 
-def build_prompt(c):
+def build_prompt(c, identity=False):
     scene_only = c.get("scene_only", False)
     expression = c.get("expression", "confident direct eye contact")
+    identity_block = (
+        "IDENTITY REFERENCE (CRITICAL): A SECOND photo is attached after the first. Use the "
+        "SECOND photo ONLY as the source of his facial identity and likeness, his exact face, "
+        "bone structure, eye shape and spacing, nose, lips, beard character, and skin tone. The "
+        "face in the FIRST photo reads less like him, so DEFER TO THE SECOND PHOTO for the face. "
+        "Take EVERYTHING ELSE from the FIRST photo: his pose, hands, hat and head covering, "
+        "glasses, gold chain, shirt and outfit, the room, background, framing, and lighting. Do "
+        "NOT bring the second photo's hat, durag, clothing, or background across, face and "
+        "likeness only. The result must be unmistakably the same man as in the SECOND photo.\n\n"
+        if identity else ""
+    )
     left = c.get("left", "a red DENIED stamp and dark shadow representing the problem")
     right = c.get("right", "a green APPROVED stamp and gold accent representing the solution")
     style_key = c.get("style", "classic")
@@ -181,6 +192,8 @@ def build_prompt(c):
         "PRESERVE HIS IDENTITY AND LIKENESS. He must remain unmistakably the same man, "
         "same bone structure, same eyes, same glasses, head covering, gold chain, and shirt. "
         f"His expression should read as: {expression}.\n\n"
+
+        f"{identity_block}"
 
         "FACE REFINEMENT (REQUIRED, apply every time, subtle and photographic, NEVER plastic "
         "or airbrushed): this man's face currently reads slightly puffy and must be refined. "
@@ -264,16 +277,20 @@ def crop_1280x720(path):
     im.crop((l, t, l+tw, t+th)).save(path)
     print("  cropped -> 1280x720")
 
-def render(still_path, concept, out_path, key, crop=False):
-    with open(still_path, "rb") as f:
+def _img_part(path):
+    with open(path, "rb") as f:
         b64 = base64.b64encode(f.read()).decode()
-    mime = "image/png" if still_path.lower().endswith("png") else "image/jpeg"
+    mime = "image/png" if path.lower().endswith("png") else "image/jpeg"
+    return {"inline_data": {"mime_type": mime, "data": b64}}
+
+def render(still_path, concept, out_path, key, crop=False, identity_path=None):
+    parts = [_img_part(still_path)]
+    if identity_path:
+        parts.append(_img_part(identity_path))          # face/likeness reference (image 2)
+    parts.append({"text": build_prompt(concept, identity=bool(identity_path))})
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={key}"
     payload = json.dumps({
-        "contents": [{"parts": [
-            {"inline_data": {"mime_type": mime, "data": b64}},
-            {"text": build_prompt(concept)}
-        ]}],
+        "contents": [{"parts": parts}],
         "generationConfig": {"responseModalities": ["TEXT", "IMAGE"]}
     }).encode()
     req = urllib.request.Request(url, data=payload,
@@ -298,6 +315,8 @@ def render(still_path, concept, out_path, key, crop=False):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--still", required=True)
+    ap.add_argument("--identity", help="optional second photo used ONLY as the face/likeness "
+                    "reference; scene/pose/outfit still come from --still")
     ap.add_argument("--concepts")
     ap.add_argument("--crop", action="store_true", help="center-crop output to exactly 1280x720")
     ap.add_argument("--scene-only", action="store_true", help="render scene with NO headline text, for Canva finishing")
@@ -315,13 +334,13 @@ def main():
         for i, c in enumerate(concepts, 1):
             name = c.get("name", f"concept_{i}")
             print(f"Concept {i} ({name}):")
-            render(args.still, c, f"outputs/{name}.png", key, crop=args.crop)
+            render(args.still, c, f"outputs/{name}.png", key, crop=args.crop, identity_path=args.identity)
     else:
         c = {"punch": args.punch or "DENIED", "main": args.main or "THEY TRIED ME",
              "sub": args.sub or "I FIGURED IT OUT", "left": args.left or "",
              "right": args.right or "", "expression": args.expression or "confident direct eye contact",
              "style": args.style, "scene_only": args.scene_only}
-        render(args.still, c, args.out, key, crop=args.crop)
+        render(args.still, c, args.out, key, crop=args.crop, identity_path=args.identity)
     print("Done.")
 
 if __name__ == "__main__":
