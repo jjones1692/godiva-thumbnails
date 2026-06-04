@@ -3,7 +3,7 @@
     "name": "gsp1_still_works",
     "style": "engineered_candid",
     "framing": "centered",
-    "pose": "presenting",
+    "pose": "open_palm",
     "component": "stamped_document",
     "punch": "STILL ON",
     "main": "THE SWEEP STILL WORKS",
@@ -17,7 +17,7 @@
     "name": "gsp1_cfpb_4days",
     "style": "interface_trust",
     "framing": "split",
-    "pose": "presenting",
+    "pose": "open_palm",
     "component": "interface_panel",
     "punch": "OPEN",
     "main": "DELETED IN 4 DAYS",
@@ -32,14 +32,14 @@
       "itemType": "graphic-templates",
       "id": "cfpb_portal",
       "zone": "right",
-      "scale": 0.40
+      "scale": 0.4
     }
   },
   {
     "name": "gsp1_605b",
     "style": "transformation_arc",
     "framing": "split",
-    "pose": "presenting",
+    "pose": "open_palm",
     "component": "before_after_card",
     "punch": "605B",
     "main": "ONE LAW DELETES IT",
@@ -53,7 +53,7 @@
     "name": "gsp1_dont_wait",
     "style": "anti_thumbnail",
     "framing": "tight_face",
-    "pose": "presenting",
+    "pose": "open_palm",
     "component": "notification",
     "punch": "WAITING",
     "main": "DON'T WAIT ON THE SYSTEM",
