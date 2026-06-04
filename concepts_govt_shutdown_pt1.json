@@ -1,0 +1,66 @@
+[
+  {
+    "name": "gsp1_still_works",
+    "style": "engineered_candid",
+    "framing": "centered",
+    "pose": "presenting",
+    "component": "stamped_document",
+    "punch": "STILL ON",
+    "main": "THE SWEEP STILL WORKS",
+    "sub": "EVEN WITH THE FTC DOWN",
+    "left": "an FTC website screen showing a red SERVICES UNAVAILABLE notice, shadowed, the dead end people are panicking about",
+    "right": "a credit report with a clean green DELETED stamp and a small CFPB seal, proof it still cleared",
+    "expression": "calm, knowing, a slight controlled half-smile, eyes steady on camera",
+    "ghost": false
+  },
+  {
+    "name": "gsp1_cfpb_4days",
+    "style": "interface_trust",
+    "framing": "split",
+    "pose": "presenting",
+    "component": "interface_panel",
+    "punch": "OPEN",
+    "main": "DELETED IN 4 DAYS",
+    "sub": "WITHOUT THE FTC",
+    "left": "a dim FTC portal stamped UNAVAILABLE in red, deep shadow",
+    "right": "leave this area clean and dim, a real CFPB-style complaint portal panel will be composited here in post",
+    "expression": "confident, direct, certain, locked eye contact",
+    "ghost": false,
+    "asset": {
+      "type": "interface_panel",
+      "envato_query": "government complaint portal dashboard ui mockup",
+      "itemType": "graphic-templates",
+      "id": "cfpb_portal",
+      "zone": "right",
+      "scale": 0.40
+    }
+  },
+  {
+    "name": "gsp1_605b",
+    "style": "transformation_arc",
+    "framing": "split",
+    "pose": "presenting",
+    "component": "before_after_card",
+    "punch": "605B",
+    "main": "ONE LAW DELETES IT",
+    "sub": "605B, NOT THE FTC",
+    "left": "a credit account stamped VERIFIED in red, shadowed, a dead end",
+    "right": "the exact same account now stamped DELETED in green with a small 605B reference tag, clean and authoritative",
+    "expression": "composed, serious, certain, jaw set",
+    "ghost": false
+  },
+  {
+    "name": "gsp1_dont_wait",
+    "style": "anti_thumbnail",
+    "framing": "tight_face",
+    "pose": "presenting",
+    "component": "notification",
+    "punch": "WAITING",
+    "main": "DON'T WAIT ON THE SYSTEM",
+    "sub": "MOVE AROUND IT",
+    "left": "a dim phone screen showing a single government SHUTDOWN notice in soft grey, one legible word SHUTDOWN, deep shadow, no other legible text",
+    "right": "",
+    "expression": "serious, no smile, quiet intensity, a slight forward lean",
+    "ghost": true
+  }
+]
