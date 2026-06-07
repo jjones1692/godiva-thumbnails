@@ -48,3 +48,9 @@ real face but INVENTS a generic one whenever asked to swap or merge faces.
 - NEVER use make_identity_still.py or the --identity two-photo merge to manufacture a face.
 - NB2's job is only to rebuild the background and add props AROUND his real face.
 - If a render comes back not looking like him, the base still is the problem, not the prompt.
+
+## FACE LIBRARY (render-input/library/)
+A set of real, clean, front-facing frames of James across looks. Use it to PICK the single
+best base still per video, the clearest, most front-facing frame, or one whose outfit fits.
+NEVER merge two of these into one render (merging invents a wrong face). One frame in, per render.
+`face_navy_dog_tee.png` is the current canonical, cleanest front-facing face lock.

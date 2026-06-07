@@ -196,12 +196,21 @@ def build_prompt(c, identity=False):
         "worst possible failure of this task. "
         f"His expression should read as: {expression}.\n\n"
 
+        "WHO HE IS (the likeness to hold exactly): a Black man with warm dark-brown skin, a full "
+        "neatly-shaped black beard and mustache rounded at the chin, oval wire-frame glasses, a "
+        "broad nose, full lips, a fuller face with a strong jaw, and a calm, steady presence. "
+        "These are his real features, keep them.\n\n"
+
         f"{identity_block}"
 
-        "OPTIONAL LIGHT POLISH (only if it does NOT change who he is): you may very subtly neaten "
-        "the beard edges and reduce under-eye puffiness, barely perceptible retouching of the "
-        "SAME man. Never reshape the jaw, never slim the face into a different person. Identity "
-        "always overrides polish. If in any doubt, leave his face exactly as photographed.\n\n"
+        "FLATTERING POLISH (aim for about 5 to 10 percent more handsome, the best-groomed, "
+        "best-lit version of himself, like a sharp barber plus flattering studio lighting, NEVER "
+        "surgery or a new face): a clean crisp beard line with tidy edges, a jaw that reads a "
+        "touch more defined through lighting and contour, even healthy skin, bright clear eyes, a "
+        "confident polished look. ABSOLUTE limit, do not cross: do not change his face shape, "
+        "bone structure, nose, eye shape, or lips, and do not slim him into a different person. "
+        "He must be instantly recognizable as the exact same man. The likeness lock above always "
+        "wins over this polish. Refine, never replace.\n\n"
 
         "SUBJECT TREATMENT (THE CUTOUT POP, apply all four): 1) clean crisp edge cutout that "
         "lifts him off the background; 2) a clearly visible bright rim light tracing his "
