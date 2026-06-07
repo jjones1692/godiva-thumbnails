@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+# ============================================================================
+# DEPRECATED, DO NOT USE FOR FACES. AI face-swap drifts and produces a WRONG,
+# generic face (this caused a full set of wrong-face renders). The rule now:
+# the base still must be ONE real, untouched photo of the actual person. Never
+# swap or generate a face. Kept only for reference.
+# ============================================================================
 """
 make_identity_still.py - face-only swap to build a corrected base still.
 

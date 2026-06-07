@@ -165,14 +165,10 @@ def build_prompt(c, identity=False):
     scene_only = c.get("scene_only", False)
     expression = c.get("expression", "confident direct eye contact")
     identity_block = (
-        "IDENTITY REFERENCE (CRITICAL): A SECOND photo is attached after the first. Use the "
-        "SECOND photo ONLY as the source of his facial identity and likeness, his exact face, "
-        "bone structure, eye shape and spacing, nose, lips, beard character, and skin tone. The "
-        "face in the FIRST photo reads less like him, so DEFER TO THE SECOND PHOTO for the face. "
-        "Take EVERYTHING ELSE from the FIRST photo: his pose, hands, hat and head covering, "
-        "glasses, gold chain, shirt and outfit, the room, background, framing, and lighting. Do "
-        "NOT bring the second photo's hat, durag, clothing, or background across, face and "
-        "likeness only. The result must be unmistakably the same man as in the SECOND photo.\n\n"
+        "FACE REFERENCE (use sparingly): a second photo is attached only as a gentle likeness "
+        "reference. The FIRST photo's face is the base, keep it. Do not replace it wholesale or "
+        "blend in a different face. If the two ever disagree, PRESERVE THE FIRST PHOTO'S ACTUAL "
+        "FACE. He must look like himself, never a generic or invented man.\n\n"
         if identity else ""
     )
     left = c.get("left", "a red DENIED stamp and dark shadow representing the problem")
@@ -189,24 +185,23 @@ def build_prompt(c, identity=False):
         "style of a CINEMATIC FINANCIAL DOCUMENTARY. Serious, grounded, premium. "
         "Not neon, not MrBeast-loud, not cartoonish, not clickbait spam.\n\n"
 
-        "PRESERVE HIS IDENTITY AND LIKENESS. He must remain unmistakably the same man, "
-        "same bone structure, same eyes, same glasses, head covering, gold chain, and shirt. "
+        "ABSOLUTE LIKENESS LOCK (the single most important rule, overrides everything else): "
+        "The attached photo is a real photograph of a specific real man. His face must come "
+        "through UNCHANGED, the exact same bone structure, jawline, nose, eye shape and spacing, "
+        "lips, beard, skin tone, and skin texture. Do NOT generate, swap, slim, reshape, "
+        "beautify, de-age, or restyle his face into a different-looking person. The face in the "
+        "output must be INDISTINGUISHABLE from the face in the photo, the same man, recognizable "
+        "by his own family. If preserving the background or props would cost his real face, KEEP "
+        "THE FACE and sacrifice the rest. A face that looks like a different man is the single "
+        "worst possible failure of this task. "
         f"His expression should read as: {expression}.\n\n"
 
         f"{identity_block}"
 
-        "FACE REFINEMENT (REQUIRED, apply every time, subtle and photographic, NEVER plastic "
-        "or airbrushed): this man's face currently reads slightly puffy and must be refined. "
-        "Slim the cheeks and reduce facial and under-chin puffiness by 5 to 8 percent so the "
-        "jawline reads cleaner and more defined, no rounder than that. Neaten the beard into "
-        "crisp, well-groomed edges with a clean cheek line and a defined neckline. Remove "
-        "wrinkles, fine lines, and creases under the eyes, on the forehead, and around the "
-        "mouth. Even out and de-puff the under-eye area. "
-        "LIKENESS LOCK, do not cross: keep the exact same bone structure, same nose, same "
-        "eye shape and spacing, same lips, same skin tone, and natural skin texture and "
-        "pores. This is a light refinement of the same man, not a new or younger face, not a "
-        "slimmer person. He must be instantly recognizable as himself. Refine, never replace."
-        "\n\n"
+        "OPTIONAL LIGHT POLISH (only if it does NOT change who he is): you may very subtly neaten "
+        "the beard edges and reduce under-eye puffiness, barely perceptible retouching of the "
+        "SAME man. Never reshape the jaw, never slim the face into a different person. Identity "
+        "always overrides polish. If in any doubt, leave his face exactly as photographed.\n\n"
 
         "SUBJECT TREATMENT (THE CUTOUT POP, apply all four): 1) clean crisp edge cutout that "
         "lifts him off the background; 2) a clearly visible bright rim light tracing his "

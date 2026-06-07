@@ -37,3 +37,14 @@ If either is missing, STOP and say exactly which one, do not try to extract or i
 `python read_script.py <file>` extracts script text from .txt/.md, .docx, the exported
 "pdf" zip bundle (page images + N.txt inside), or a real text-layer PDF. Use it if a raw
 script ever lands in either environment.
+
+## THE FACE RULE (non-negotiable, learned the hard way)
+A full set of renders came back with the WRONG FACE because the base still was an
+AI face-swap (make_identity_still.py) and a two-photo identity merge. NB2 preserves a
+real face but INVENTS a generic one whenever asked to swap or merge faces.
+
+- The base still is ALWAYS one real, untouched photo of James's actual face, in the outfit
+  he actually filmed in. Pull a real frame from the footage.
+- NEVER use make_identity_still.py or the --identity two-photo merge to manufacture a face.
+- NB2's job is only to rebuild the background and add props AROUND his real face.
+- If a render comes back not looking like him, the base still is the problem, not the prompt.
